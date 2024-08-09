@@ -4,11 +4,16 @@ export const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 2rem 1.25rem;
 
   nav {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    padding: 2rem 10rem;
   }
 `
 
