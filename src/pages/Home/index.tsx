@@ -1,3 +1,11 @@
+import { HomeContainer } from './styles'
+
+import { Hero } from './components/Hero'
+
 export function Home() {
-  return <div>Home</div>
+  return (
+    <HomeContainer>
+      <Hero />
+    </HomeContainer>
+  )
 }
