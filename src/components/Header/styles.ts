@@ -12,7 +12,7 @@ export const HeaderContainer = styled.header`
     gap: 0.75rem;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1300px) {
     padding: 2rem 10rem;
   }
 `
