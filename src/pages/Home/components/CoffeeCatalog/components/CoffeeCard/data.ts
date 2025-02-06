@@ -15,6 +15,7 @@ import Irish from '../../../../../../assets/irish-coffee.png'
 
 export const coffees = [
   {
+    id: 1,
     name: 'Expresso Tradicional',
     image: Express,
     tags: ['Tradicional', 'Especial'],
@@ -22,6 +23,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 2,
     name: 'Expresso Americano',
     image: American,
     tags: ['Tradicional'],
@@ -29,6 +31,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 3,
     name: 'Expresso Cremoso',
     image: CreamyExpress,
     tags: ['Tradicional'],
@@ -36,6 +39,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 4,
     name: 'Expresso Gelado',
     image: IcedCoffee,
     tags: ['Tradicional', 'Gelado'],
@@ -43,6 +47,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 5,
     name: 'Café com Leite',
     image: CoffeWithMilk,
     tags: ['Tradicional', 'Com leite'],
@@ -50,6 +55,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 6,
     name: 'Latte',
     image: Latte,
     tags: ['Tradicional', 'Com leite'],
@@ -57,6 +63,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 7,
     name: 'Capuccino',
     image: Cappuccino,
     tags: ['Tradicional', 'Com leite'],
@@ -64,6 +71,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 8,
     name: 'Macchiato',
     image: Macchiato,
     tags: ['Tradicional', 'Com leite'],
@@ -71,6 +79,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 9,
     name: 'Mocaccino',
     image: Mochaccino,
     tags: ['Tradicional', 'Com leite'],
@@ -78,6 +87,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 10,
     name: 'Chocolate Quente',
     image: HotChocolate,
     tags: ['Tradicional', 'Com leite'],
@@ -85,6 +95,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 11,
     name: 'Cubano',
     image: Cuban,
     tags: ['Especial', 'Alcoólico', 'Gelado'],
@@ -92,6 +103,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 12,
     name: 'Havaiano',
     image: Hawaiian,
     tags: ['Especial'],
@@ -99,6 +111,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 13,
     name: 'Árabe',
     image: Arabic,
     tags: ['Especial'],
@@ -106,6 +119,7 @@ export const coffees = [
     price: 9.9,
   },
   {
+    id: 14,
     name: 'Irlandês',
     image: Irish,
     tags: ['Especial', 'Alcoólico'],
