@@ -1,3 +1,6 @@
+import { useContext } from 'react'
+import { CartContext } from '../../../../contexts/CartContext'
+
 import {
   CartContainer,
   CartItem,
@@ -14,54 +17,77 @@ import { Trash } from 'phosphor-react'
 
 import { Stepper } from '../../../../components/Stepper'
 
-import AmericanCoffee from '../../../../assets/american-coffee.png'
+interface ICoffee {
+  id: number
+  name: string
+  price: number
+  quantity: number
+}
 
 export function Cart() {
+  const { items, addItem, removeItem, increment, decrement, cartTotal } = useContext(CartContext)
+
+  const handleIncrement = (coffee: ICoffee) => {
+    const cartItem = items.find((item) => item.id === coffee.id)
+
+    if (cartItem) {
+      increment(coffee.id)
+    } else {
+      addItem({
+        id: coffee.id,
+        name: coffee.name,
+        price: coffee.price,
+        quantity: 1,
+      })
+    }
+  }
+
+  const handleDecrement = (coffeeId: number) => {
+    const cartItem = items.find((item) => item.id === coffeeId)
+
+    if (cartItem) {
+      decrement(coffeeId)
+    }
+  }
+
+  const handleRemoveItem = (coffeeId: number) => {
+    removeItem(coffeeId)
+  }
+
   return (
     <CartContainer>
-      <CartItem>
-        <img src={AmericanCoffee} />
+      {items.map((item) => (
+        <div key={item.id}>
+          <CartItem>
+            <img src={item.image} alt={item.name} />
 
-        <Details>
-          <p>Americano</p>
+            <Details>
+              <p>{item.name}</p>
 
-          <Actions>
-            <Stepper />
-            <RemoveButton>
-              <Trash size={20} />
-              <span>Remover</span>
-            </RemoveButton>
-          </Actions>
-        </Details>
+              <Actions>
+                <Stepper
+                  quantity={item.quantity}
+                  onIncrement={() => handleIncrement(item)}
+                  onDecrement={() => handleDecrement(item.id)}
+                />
+                <RemoveButton onClick={() => handleRemoveItem(item.id)}>
+                  <Trash size={20} />
+                  <span>Remover</span>
+                </RemoveButton>
+              </Actions>
+            </Details>
 
-        <Price>R$ 9,90</Price>
-      </CartItem>
+            <Price>R$ {item.price.toFixed(2).replace('.', ',')}</Price>
+          </CartItem>
 
-      <Divider />
-
-      <CartItem>
-        <img src={AmericanCoffee} />
-
-        <Details>
-          <p>Americano</p>
-          <Actions>
-            <Stepper />
-            <RemoveButton>
-              <Trash size={20} />
-              <span>Remover</span>
-            </RemoveButton>
-          </Actions>
-        </Details>
-
-        <Price>R$ 9,90</Price>
-      </CartItem>
-
-      <Divider />
+          <Divider />
+        </div>
+      ))}
 
       <Summary>
         <TotalPrice>
           <p>Total de itens</p>
-          <span>R$ 29,70</span>
+          <span>R$ {cartTotal.toFixed(2).replace('.', ',')}</span>
         </TotalPrice>
 
         <TotalPrice>
@@ -71,7 +97,7 @@ export function Cart() {
 
         <TotalPrice>
           <strong>Total</strong>
-          <strong>R$ 33,20</strong>
+          <strong>R$ {(cartTotal + 3.50).toFixed(2).replace('.', ',')}</strong>
         </TotalPrice>
       </Summary>
 
