@@ -1,27 +1,22 @@
-import { useState } from 'react'
-
 import { Minus, Plus } from 'phosphor-react'
 import { StepperContainer } from './styles'
 
-export function Stepper() {
-  const [value, setValue] = useState(1)
+interface StepperProps {
+  quantity: number
+  onIncrement: () => void
+  onDecrement: () => void
+}
 
-  const increment = () => setValue((prevValue) => prevValue + 1)
-  const decrement = () => {
-    if (value > 0) {
-      setValue((prevValue) => prevValue - 1)
-    }
-  }
-
+export function Stepper({ quantity, onIncrement, onDecrement }: StepperProps) {
   return (
     <StepperContainer>
-      <button onClick={decrement}>
+      <button onClick={onDecrement} disabled={quantity === 0}>
         <Minus size={14} />
       </button>
 
-      <span>{value}</span>
+      <span>{quantity}</span>
 
-      <button onClick={increment}>
+      <button onClick={onIncrement}>
         <Plus size={14} />
       </button>
     </StepperContainer>
