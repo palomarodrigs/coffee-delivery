@@ -25,7 +25,8 @@ interface ICoffee {
 }
 
 export function Cart() {
-  const { items, addItem, removeItem, increment, decrement, cartTotal } = useContext(CartContext)
+  const { items, addItem, removeItem, increment, decrement, cartTotal, confirmOrder } =
+    useContext(CartContext)
 
   const handleIncrement = (coffee: ICoffee) => {
     const cartItem = items.find((item) => item.id === coffee.id)
@@ -97,11 +98,11 @@ export function Cart() {
 
         <TotalPrice>
           <strong>Total</strong>
-          <strong>R$ {(cartTotal + 3.50).toFixed(2).replace('.', ',')}</strong>
+          <strong>R$ {(cartTotal + 3.5).toFixed(2).replace('.', ',')}</strong>
         </TotalPrice>
       </Summary>
 
-      <ConfirmOrderButton>Confirmar pedido</ConfirmOrderButton>
+      <ConfirmOrderButton onClick={confirmOrder}>Confirmar pedido</ConfirmOrderButton>
     </CartContainer>
   )
 }
