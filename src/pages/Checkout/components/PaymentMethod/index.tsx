@@ -1,7 +1,23 @@
+import { useContext, useState, useEffect } from 'react'
+
+import { CartContext } from '../../../../contexts/CartContext'
+
 import { Option, Options, PaymentMethodContainer, PaymentMethodHeader } from './styles'
 import { Bank, CreditCard, CurrencyDollar, Money } from 'phosphor-react'
 
 export function PaymentMethod() {
+  const { paymentMethod, onPaymentMethodChange } = useContext(CartContext)
+  const [selectedMethod, setSelectedMethod] = useState(paymentMethod)
+
+  useEffect(() => {
+    setSelectedMethod(paymentMethod)
+  }, [paymentMethod])
+
+  const handleSelectMethod = (method: string) => {
+    setSelectedMethod(method)
+    onPaymentMethodChange(method)
+  }
+
   return (
     <PaymentMethodContainer>
       <PaymentMethodHeader>
@@ -13,17 +29,26 @@ export function PaymentMethod() {
       </PaymentMethodHeader>
 
       <Options>
-        <Option>
+        <Option
+          onClick={() => handleSelectMethod('credit')}
+          selected={selectedMethod === 'credit'}
+        >
           <CreditCard size={20} />
           <p>Cartão de Crédito</p>
         </Option>
 
-        <Option>
+        <Option
+          onClick={() => handleSelectMethod('debit')}
+          selected={selectedMethod === 'debit'}
+        >
           <Bank size={20} />
           <p>Cartão de Débito</p>
         </Option>
 
-        <Option>
+        <Option
+          onClick={() => handleSelectMethod('cash')}
+          selected={selectedMethod === 'cash'}
+        >
           <Money size={20} />
           <p>Dinheiro</p>
         </Option>
