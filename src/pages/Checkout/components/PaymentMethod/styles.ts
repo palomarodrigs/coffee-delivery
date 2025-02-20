@@ -1,4 +1,8 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+interface OptionProps {
+  selected: boolean
+}
 
 export const PaymentMethodContainer = styled.div`
   width: 100%;
@@ -49,7 +53,7 @@ export const Options = styled.div`
   }
 `
 
-export const Option = styled.button`
+export const Option = styled.button<OptionProps>`
   width: 100%;
   height: 3rem;
 
@@ -78,10 +82,18 @@ export const Option = styled.button`
     filter: brightness(0.9);
     transition: filter 0.2s;
   }
+
   &:focus {
     border: 1px solid ${(props) => props.theme['purple']};
     background-color: ${(props) => props.theme['purple-light']};
   }
+
+  ${(props) =>
+    props.selected &&
+    css`
+      border: 1px solid ${(props) => props.theme['purple']};
+      background-color: ${(props) => props.theme['purple-light']};
+    `}
 
   @media (min-width: 1024px) {
     width: 13rem;
