@@ -45,8 +45,15 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     return storedItems ? JSON.parse(storedItems) : []
   })
 
-  const [address, setAddress] = useState<Address | null>(null)
-  const [paymentMethod, setPaymentMethod] = useState('')
+  const [address, setAddress] = useState<Address | null>(() => {
+    const storedAddress = localStorage.getItem('@coffee-delivery:address')
+    return storedAddress ? JSON.parse(storedAddress) : null
+  })
+
+  const [paymentMethod, setPaymentMethod] = useState<string>(() => {
+    const storedPaymentMethod = localStorage.getItem('@coffee-delivery:methodPayment')
+    return storedPaymentMethod ? JSON.parse(storedPaymentMethod) : ''
+  })
 
   const addItem = (item: CartItem) => {
     dispatch(addItemAction(item))
