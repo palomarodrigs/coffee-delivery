@@ -1,3 +1,6 @@
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
+
 import {
   ConfirmedOrderContainer,
   ConfirmedOrderHeader,
@@ -11,6 +14,8 @@ import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import Delivery from '../../assets/delivery.svg'
 
 export function ConfirmedOrder() {
+  const { address, paymentMethod } = useContext(CartContext)
+
   return (
     <ConfirmedOrderContainer>
       <OrderInfo>
@@ -26,9 +31,12 @@ export function ConfirmedOrder() {
                 <MapPin size={16} />
               </div>
               <p>
-                Entrega em <span>Rua João Daniel Martinelli, 102</span>
+                Entrega em{' '}
+                <span>
+                  {address?.street}, {address?.number}
+                </span>
                 <br />
-                Farrapos - Porto Alegre, RS
+                {address?.neighborhood} - {address?.city}, {address?.state}
               </p>
             </Info>
 
@@ -50,7 +58,13 @@ export function ConfirmedOrder() {
               <p>
                 Pagamento na entrega
                 <br />
-                <span>Cartão de Crédito</span>
+                <span>
+                  {paymentMethod === 'credit'
+                    ? 'Cartão de Crédito'
+                    : paymentMethod === 'debit'
+                    ? 'Cartão de Débito'
+                    : 'Dinheiro'}
+                </span>
               </p>
             </Info>
           </OrderDetailsWrapper>
