@@ -75,7 +75,13 @@ export function Cart() {
   }
 
   const handleRemoveItem = (coffeeId: number) => {
-    removeItem(coffeeId)
+    const confirmRemoval = window.confirm(
+      'Tem certeza que deseja remover este item do carrinho?',
+    )
+
+    if (confirmRemoval) {
+      removeItem(coffeeId)
+    }
   }
 
   const handleConfirmOrder = () => {
