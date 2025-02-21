@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { CartContext } from '../../../../contexts/CartContext'
 
 import { useNavigate } from 'react-router-dom'
@@ -26,20 +26,28 @@ interface ICoffee {
   quantity: number
 }
 
-type OrderStatus = 'default' | 'confirming' | 'processing' | 'confirmed'
+type OrderStatus = 'default' | 'processing' | 'confirming' | 'confirmed'
 
 const buttonTexts = {
   default: 'Confirmar Pedido',
-  confirming: 'Confirmando...',
   processing: 'Processando pagamento...',
+  confirming: 'Confirmando...',
   confirmed: 'Pedido Confirmado!',
 }
 
 export function Cart() {
   const [orderStatus, setOrderStatus] = useState<OrderStatus>('default')
 
-  const { items, addItem, removeItem, increment, decrement, cartTotal, confirmOrder } =
-    useContext(CartContext)
+  const {
+    items,
+    addItem,
+    removeItem,
+    increment,
+    decrement,
+    cartTotal,
+    confirmOrder,
+    clearCart,
+  } = useContext(CartContext)
 
   const navigate = useNavigate()
 
@@ -71,29 +79,22 @@ export function Cart() {
   }
 
   const handleConfirmOrder = () => {
-    setOrderStatus('confirming')
+    setOrderStatus('processing')
 
     setTimeout(() => {
-      setOrderStatus('processing')
+      setOrderStatus('confirming')
 
       setTimeout(() => {
         confirmOrder()
         setOrderStatus('confirmed')
 
-        localStorage.removeItem('@coffee-delivery:methodPayment')
-        localStorage.removeItem('@coffee-delivery:address')
-        localStorage.removeItem('@coffee-delivery:cartItems')
+        setTimeout(() => {
+          navigate('/success')
+          clearCart()
+        }, 2000)
       }, 2000)
     }, 2000)
   }
-
-  useEffect(() => {
-    if (orderStatus === 'confirmed') {
-      setTimeout(() => {
-        navigate('/success')
-      }, 1000)
-    }
-  }, [orderStatus, navigate])
 
   return (
     <CartContainer>
