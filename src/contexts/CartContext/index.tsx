@@ -3,6 +3,7 @@ import { createContext, ReactNode, useEffect, useReducer, useState } from 'react
 import { CartItem, itemsReducer } from '../../reducers/items/reducer'
 import {
   addItemAction,
+  clearCartAction,
   decrementAction,
   incrementAction,
   removeItemAction,
@@ -31,6 +32,7 @@ interface CartContextType {
   confirmOrder: () => void
   onAddressChange: (address: Address) => void
   onPaymentMethodChange: (method: string) => void
+  clearCart: () => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -103,6 +105,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setPaymentMethod(method)
   }
 
+  const clearCart = () => {
+    dispatch(clearCartAction())
+    localStorage.removeItem('@coffee-delivery:cartItems')
+    localStorage.removeItem('@coffee-delivery:address')
+    localStorage.removeItem('@coffee-delivery:methodPayment')
+    setPaymentMethod('')
+  }
+
   useEffect(() => {
     localStorage.setItem('@coffee-delivery:cartItems', JSON.stringify(items))
   }, [items])
@@ -122,6 +132,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         confirmOrder,
         onAddressChange,
         onPaymentMethodChange,
+        clearCart,
       }}
     >
       {children}
