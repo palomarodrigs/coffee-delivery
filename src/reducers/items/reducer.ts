@@ -54,6 +54,9 @@ export function itemsReducer(state: CartItem[], action: any) {
         }
       })
 
+    case ActionTypes.CLEAR_CART:
+      return []
+
     default:
       return state
   }

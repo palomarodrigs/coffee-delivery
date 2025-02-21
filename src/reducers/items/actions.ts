@@ -5,6 +5,7 @@ export enum ActionTypes {
   REMOVE_ITEM = 'REMOVE_ITEM',
   INCREMENT = 'INCREMENT',
   DECREMENT = 'DECREMENT',
+  CLEAR_CART = 'CLEAR_CART',
 }
 
 export function addItemAction(item: CartItem) {
@@ -32,5 +33,11 @@ export function decrementAction(id: number) {
   return {
     type: ActionTypes.DECREMENT,
     payload: { id },
+  }
+}
+
+export function clearCartAction() {
+  return {
+    type: ActionTypes.CLEAR_CART,
   }
 }
