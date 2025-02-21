@@ -127,16 +127,22 @@ export const TotalPrice = styled.div`
   }
 `
 
-export const ConfirmOrderButton = styled(ButtonBase)`
+export const ConfirmOrderButton = styled(ButtonBase)<{ $isConfirmed: boolean }>`
   width: 100%;
   padding: 0.75rem 0;
   font-size: 0.875rem;
   font-weight: bold;
   color: ${(props) => props.theme['white']};
-  background-color: ${(props) => props.theme['yellow']};
+  background-color: ${(props) =>
+    props.$isConfirmed ? props.theme['green'] : props.theme['yellow']};
 
   &:hover {
     background-color: ${(props) => props.theme['yellow-dark']};
     transition: background-color 0.2s;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
   }
 `

@@ -1,5 +1,7 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../../../contexts/CartContext'
+
+import { useNavigate } from 'react-router-dom'
 
 import {
   CartContainer,
@@ -24,9 +26,22 @@ interface ICoffee {
   quantity: number
 }
 
+type OrderStatus = 'default' | 'confirming' | 'processing' | 'confirmed'
+
+const buttonTexts = {
+  default: 'Confirmar Pedido',
+  confirming: 'Confirmando...',
+  processing: 'Processando pagamento...',
+  confirmed: 'Pedido Confirmado!',
+}
+
 export function Cart() {
+  const [orderStatus, setOrderStatus] = useState<OrderStatus>('default')
+
   const { items, addItem, removeItem, increment, decrement, cartTotal, confirmOrder } =
     useContext(CartContext)
+
+  const navigate = useNavigate()
 
   const handleIncrement = (coffee: ICoffee) => {
     const cartItem = items.find((item) => item.id === coffee.id)
@@ -54,6 +69,31 @@ export function Cart() {
   const handleRemoveItem = (coffeeId: number) => {
     removeItem(coffeeId)
   }
+
+  const handleConfirmOrder = () => {
+    setOrderStatus('confirming')
+
+    setTimeout(() => {
+      setOrderStatus('processing')
+
+      setTimeout(() => {
+        confirmOrder()
+        setOrderStatus('confirmed')
+
+        localStorage.removeItem('@coffee-delivery:methodPayment')
+        localStorage.removeItem('@coffee-delivery:address')
+        localStorage.removeItem('@coffee-delivery:cartItems')
+      }, 2000)
+    }, 2000)
+  }
+
+  useEffect(() => {
+    if (orderStatus === 'confirmed') {
+      setTimeout(() => {
+        navigate('/success')
+      }, 1000)
+    }
+  }, [orderStatus, navigate])
 
   return (
     <CartContainer>
@@ -101,8 +141,13 @@ export function Cart() {
           <strong>R$ {(cartTotal + 3.5).toFixed(2).replace('.', ',')}</strong>
         </TotalPrice>
       </Summary>
-
-      <ConfirmOrderButton onClick={confirmOrder}>Confirmar pedido</ConfirmOrderButton>
+      <ConfirmOrderButton
+        onClick={handleConfirmOrder}
+        disabled={orderStatus !== 'default'}
+        $isConfirmed={orderStatus === 'confirmed'}
+      >
+        {buttonTexts[orderStatus]}
+      </ConfirmOrderButton>
     </CartContainer>
   )
 }
