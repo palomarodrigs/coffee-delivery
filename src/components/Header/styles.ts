@@ -47,9 +47,32 @@ export const CartButton = styled.button`
   color: ${(props) => props.theme['yellow-dark']};
   cursor: pointer;
 
+  position: relative;
+
   &:hover {
     background-color: ${(props) => props.theme['yellow-dark']};
     color: ${(props) => props.theme['yellow-light']};
     transition: 0.3s;
   }
+`
+
+export const CartCount = styled.div`
+  width: 1.25rem;
+  height: 1.25rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 0.75rem;
+  font-weight: bold;
+
+  background-color: ${(props) => props.theme['yellow-dark']};
+  color: ${(props) => props.theme['white']};
+
+  border-radius: 9999px;
+
+  position: absolute;
+  top: -8px;
+  right: -8px;
 `
