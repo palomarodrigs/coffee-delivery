@@ -2,10 +2,7 @@
 
 Coffee Delivery is a simple e-commerce website that allows users to browse and purchase coffee products. The website has a clean and modern design, with a focus on user experience and ease of use.
 
-<video width="600" controls controlsList="nodownload noplaybackrate">
-  <source src="./public/preview.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
+![preview](.github/cover.png)
 
 ## 🔨 Features
 
